@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import restaurant.com.deliverydriversqueuemanager.handler.SimpleAuthenticationSuccessHandler;
 import restaurant.com.deliverydriversqueuemanager.handler.SimpleLogoutSuccessHandler;
 import restaurant.com.deliverydriversqueuemanager.service.UserDetailsServiceImpl;
 
@@ -20,13 +21,13 @@ import restaurant.com.deliverydriversqueuemanager.service.UserDetailsServiceImpl
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     //@Qualifier("userDetailsService")
     private UserDetailsServiceImpl userDetailsService;
-    private SimpleUrlAuthenticationSuccessHandler simpleUrlAuthenticationSuccessHandler;
+    private SimpleUrlAuthenticationSuccessHandler simpleAuthenticationSuccessHandler;
     private SimpleLogoutSuccessHandler simpleLogoutSuccessHandler;
 
     @Autowired
-    public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, SimpleUrlAuthenticationSuccessHandler simpleUrlAuthenticationSuccessHandler, SimpleLogoutSuccessHandler simpleLogoutSuccessHandler) {
+    public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, SimpleAuthenticationSuccessHandler simpleUrlAuthenticationSuccessHandler, SimpleLogoutSuccessHandler simpleLogoutSuccessHandler) {
         this.userDetailsService = userDetailsService;
-        this.simpleUrlAuthenticationSuccessHandler = simpleUrlAuthenticationSuccessHandler;
+        this.simpleAuthenticationSuccessHandler = simpleAuthenticationSuccessHandler;
         this.simpleLogoutSuccessHandler = simpleLogoutSuccessHandler;
     }
 
@@ -45,7 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
-                .successHandler(simpleUrlAuthenticationSuccessHandler)
+                .successHandler(simpleAuthenticationSuccessHandler)
                 .defaultSuccessUrl("/home", true)
                 .permitAll()
                 .and()
