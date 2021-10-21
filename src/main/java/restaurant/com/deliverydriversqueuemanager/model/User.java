@@ -23,8 +23,7 @@ public class User extends BaseEntity {
 
     private Boolean isLogged;
 
-    @OneToOne
-    private DriverStatus driverStatus;
+    private String driverStatus;
 
     private LocalDateTime changeDriverStatusTime;
 }
