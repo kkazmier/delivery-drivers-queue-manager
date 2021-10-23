@@ -1,12 +1,10 @@
 package restaurant.com.deliverydriversqueuemanager.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -26,4 +24,9 @@ public class User extends BaseEntity {
     private String driverStatus;
 
     private LocalDateTime changeDriverStatusTime;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "driver_id", referencedColumnName = "id")
+    @JsonManagedReference
+    private Driver driver;
 }
