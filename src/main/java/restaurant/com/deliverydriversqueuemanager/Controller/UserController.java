@@ -1,26 +1,39 @@
 package restaurant.com.deliverydriversqueuemanager.Controller;
 
-import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import restaurant.com.deliverydriversqueuemanager.model.User;
 import restaurant.com.deliverydriversqueuemanager.service.SecurityService;
 import restaurant.com.deliverydriversqueuemanager.service.UserService;
+import restaurant.com.deliverydriversqueuemanager.util.ActiveUserStore;
 import restaurant.com.deliverydriversqueuemanager.util.UserValidator;
 
+import javax.servlet.http.HttpSessionBindingListener;
+import java.util.List;
+
 @Controller
-@AllArgsConstructor
-public class UserController {
+public class UserController implements HttpSessionBindingListener {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
     private SecurityService securityService;
     private UserValidator userValidator;
+    private ActiveUserStore activeUserStore;
+
+    @Autowired
+    public UserController(UserService userService, SecurityService securityService, UserValidator userValidator, ActiveUserStore activeUserStore) {
+        this.userService = userService;
+        this.securityService = securityService;
+        this.userValidator = userValidator;
+    }
 
     @GetMapping("/registration")
     public String registration(Model model) {
@@ -43,7 +56,7 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login(Model model, String error, String logout) {
+    public String login(Model model, String error, String logout, Authentication authentication) {
         if (securityService.isAuthenticated()) {
             return "redirect:/";
         }
@@ -56,14 +69,19 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping({ "/welcome"})
+    @GetMapping("/welcome")
     public String welcome(Model model) {
         return "welcome";
     }
 
+    @GetMapping("/home")
+    public String home(Authentication authentication) {
+        return "home.html";
+    }
+
     @GetMapping("/loggedUsers")
-    public String getLoggedUsers(Model model) {
-        //model.addAttribute("loggedUsers", userService.getAllActiveUsers());
-        return "loggedUsers";
+    @ResponseBody
+    public List<String> getLoggedUsers(Model model) {
+        return activeUserStore.getUsers();
     }
 }
