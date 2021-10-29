@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import restaurant.com.deliverydriversqueuemanager.handler.SimpleAuthenticationSuccessHandler;
 import restaurant.com.deliverydriversqueuemanager.handler.SimpleLogoutSuccessHandler;
 import restaurant.com.deliverydriversqueuemanager.service.UserDetailsServiceImpl;
@@ -21,11 +20,11 @@ import restaurant.com.deliverydriversqueuemanager.service.UserDetailsServiceImpl
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     //@Qualifier("userDetailsService")
     private UserDetailsServiceImpl userDetailsService;
-    private SimpleUrlAuthenticationSuccessHandler simpleAuthenticationSuccessHandler;
+    private SimpleAuthenticationSuccessHandler simpleAuthenticationSuccessHandler;
     private SimpleLogoutSuccessHandler simpleLogoutSuccessHandler;
 
     @Autowired
-    public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, SimpleAuthenticationSuccessHandler simpleUrlAuthenticationSuccessHandler, SimpleLogoutSuccessHandler simpleLogoutSuccessHandler) {
+    public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, SimpleAuthenticationSuccessHandler simpleAuthenticationSuccessHandler, SimpleLogoutSuccessHandler simpleLogoutSuccessHandler) {
         this.userDetailsService = userDetailsService;
         this.simpleAuthenticationSuccessHandler = simpleAuthenticationSuccessHandler;
         this.simpleLogoutSuccessHandler = simpleLogoutSuccessHandler;
@@ -40,19 +39,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/login*", "/registration*").permitAll()
+                .antMatchers("/login", "/registration").permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
-                .successHandler(simpleAuthenticationSuccessHandler)
                 .defaultSuccessUrl("/home", true)
+                .successHandler(simpleAuthenticationSuccessHandler)
                 .permitAll()
                 .and()
                 .logout()
                 .logoutSuccessHandler(simpleLogoutSuccessHandler)
-                //.logoutUrl("/logout")
+                .logoutUrl("/logout")
                 .invalidateHttpSession(true)
                 .logoutSuccessUrl("/logout")
                 .deleteCookies("JSESSIONID")
