@@ -33,6 +33,7 @@ public class UserController implements HttpSessionBindingListener {
         this.userService = userService;
         this.securityService = securityService;
         this.userValidator = userValidator;
+        this.activeUserStore = activeUserStore;
     }
 
     @GetMapping("/registration")

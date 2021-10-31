@@ -28,21 +28,10 @@ public class LoggedUser implements HttpSessionBindingListener {
     @Override
     public void valueBound(HttpSessionBindingEvent event) {
         logger.info("valueBound()");
-        List<String> users;
-        users = activeUserStore.getUsers();
-        if(activeUserStore == null){
-            activeUserStore = new ActiveUserStore();
-            logger.info("user store is null");
-        } else {
-            users = activeUserStore.getUsers();
-            logger.info("Active users: " + users.size());
-        }
         LoggedUser user = (LoggedUser) event.getValue();
-        if (!users.contains(user.getUsername())) {
-            users.add(user.getUsername());
-            logger.info("add user " + user.username + " to userstore");
-        }
-        logger.info("[login] logged user count: " + users.size());
+        activeUserStore.users.add(user.username);
+        logger.info("Added " + user.username + " to userstore.");
+        logger.info(activeUserStore.toString());
     }
 
     @Override
