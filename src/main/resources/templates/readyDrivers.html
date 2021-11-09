@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>Ready drivers</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link href="/css/main.css" rel="stylesheet">
+</head>
+
+<body>
+    <h2>Gotowi kierowcy</h2>
+<!--    <div th:each="driver : ${readyDrivers}">-->
+<!--        <p th:text="${driver.user.username}">user</p>-->
+<!--    </div>-->
+
+    <table class="table table-striped">
+        <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Zmiana statusu</th>
+        </tr>
+        </thead>
+        <tr th:each="driver, custStat : ${readyDrivers}">
+            <td th:text="${custStat.count}"></td>
+            <td th:text="${driver.user.firstName}"></td>
+            <td th:text="${driver.user.lastName}"></td>
+            <td th:text="${driver.changeDriverStatusTimeStr}"></td>
+
+        </tr>
+    </table>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script src="/js/main.js"></script>
+</body>
+</html>

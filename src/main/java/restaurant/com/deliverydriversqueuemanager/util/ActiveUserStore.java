@@ -19,7 +19,7 @@ public class ActiveUserStore {
     public final List<String> users;
 
     public ActiveUserStore() {
-        logger.info("User store created.");
+        logger.info("Active user store created.");
         users = new ArrayList<>();
     }
 

@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "driver", schema = "public")
+@Table(name = "drivers", schema = "public")
 @Getter
 @Setter
 public class Driver extends BaseEntity {
@@ -19,13 +19,15 @@ public class Driver extends BaseEntity {
     private User user;
 
     private LocalDateTime changeDriverStatusTime;
+    private String changeDriverStatusTimeStr;
     private String driverStatus;
 
     @Override
     public String toString() {
         return "Driver{" +
-                "login=" + user.getUsername() +
+                "user=" + user.getUsername() +
                 ", changeDriverStatusTime=" + changeDriverStatusTime +
+                ", changeDriverStatusTimeStr='" + changeDriverStatusTimeStr + '\'' +
                 ", driverStatus='" + driverStatus + '\'' +
                 '}';
     }

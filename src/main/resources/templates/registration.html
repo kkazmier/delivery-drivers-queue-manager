@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
-  <title>Create an account</title>
+  <title>Zakładanie konta</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   <link href="/css/common.css" rel="stylesheet">
 </head>
@@ -12,22 +12,34 @@
 <div class="container">
 
   <form method="POST" class="form-signin" th:object="${userForm}" th:action="@{/registration}">
-    <h2 class="form-signin-heading">Create your account</h2>
+    <h2 class="form-signin-heading">Zakładanie konta</h2>
     <div class="form-group">
-      <input type="text" th:field="*{username}" class="form-control" placeholder="Username"
+      <input type="text" th:field="*{username}" class="form-control" placeholder="Nazwa Użytkownika"
              autofocus="true">
       <span class="has-error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
     </div>
 
     <div class="form-group">
-      <input type="password" th:field="*{password}" class="form-control" placeholder="Password">
+      <input type="text" th:field="*{firstName}" class="form-control" placeholder="Imię"
+             autofocus="true">
+      <span class="has-error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+    </div>
+
+    <div class="form-group">
+      <input type="text" th:field="*{lastName}" class="form-control" placeholder="Nazwisko"
+             autofocus="true">
+      <span class="has-error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+    </div>
+
+    <div class="form-group">
+      <input type="password" th:field="*{password}" class="form-control" placeholder="Hasło">
       <span class="has-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
     </div>
 
     <div class="form-group">
       <input type="password" th:field="*{passwordConfirm}" class="form-control"
              placeholder="Confirm your password">
-      <span class="has-error" th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"></span>
+      <span class="has-error" th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{Potwierdzenie hasła}"></span>
     </div>
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
