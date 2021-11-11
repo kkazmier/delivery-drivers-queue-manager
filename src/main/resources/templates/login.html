@@ -8,29 +8,29 @@
 </head>
 
 <body>
-<div class="container">
-    <form class="form-signin" method="POST" th:action="@{/login}">
-        <h2>Witamy w aplikacji</h2>
-        <h2>Kolejka Kierowców</h2>
-        <h2 class="form-heading">Zaloguj się</h2>
-        <div class="form-group">
-            <span th:text="${message}"></span>
-            <input name="username" type="text" class="form-control" placeholder="Username"
-                   autofocus="true"/>
 
-            <input name="password" type="password" class="form-control" placeholder="Password"/>
-            <span class="has-error" th:text="${error}"></span>
 
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Logowanie</button>
-        </div>
-        <div>
-            <h2 class="form-heading">Nie masz konta?</h2>
-            <h2 class="form-heading">Zarejestruj się:</h2>
-            <a href="registration.html" th:href="@{/registration}"><button type="button" class="btn btn-lg btn-primary btn-block">Rejestracja</button></a>
-        </div>
-    </form>
+<div class="card" style="width: 24rem;">
+    <div class="card-body">
+        <form class="form-signin" method="POST" th:action="@{/login}">
+            <div class="form-group">
+                <span th:text="${message}"></span>
+                <input name="username" type="text" class="form-control" placeholder="Username" autofocus="true"/>
+            </div>
+            <div class="form-group">
+                <input name="password" type="password" class="form-control" placeholder="Password"/>
+                <span class="has-error" th:text="${error}"></span>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Logowanie</button>
+            </div>
+        </form>
+    </div>
+    <div class="card-body bg-light">
+        <h3 class="form-heading" float-center>Nie masz konta?</h3>
+        <a href="registration.html" th:href="@{/registration}"><button type="button" class="btn btn-lg btn-success btn-block float-right">Zarejestruj się</button></a>
+    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

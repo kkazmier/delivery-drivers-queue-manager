@@ -8,11 +8,23 @@
 </head>
 
 <body>
+
+<div class="card" style="width: 24rem;">
+    <img src="https://icon-library.com/images/queue-icon/queue-icon-6.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h2 class="card-title text-center">Witamy w programie</h2>
+        <h1 class="card-title text-center">kolejka kierowców</h1>
+    </div>
+    <div class="card-body bg-light">
+        <a href="login.html" th:href="@{/login}" class="btn btn-primary float-left">Logowanie</a>
+        <a href="registration.html" th:href="@{/registration}" class="btn btn-success float-right">Rejestracja</a>
+    </div>
+</div>
+
 <div class="container">
     <h2>Zostałeś pomyślnie zalogowany</h2>
-    <a href="login.html" th:href="@{/login}"><button type="button" class="btn btn-lg btn-primary btn-block">Logowanie</button></a>
     <form th:action="@{/logout}" method="POST">
-        <input class="btn btn-lg btn-secondary btn-block" type="submit" value="Logout"/>
+        <input class="btn btn-lg btn-secondary btn-block" type="submit" value="Wyloguj"/>
     </form>
 </div>
 

@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -40,28 +39,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/login", "/registration", "loggedUsers", "/deleteAllUsers", "/allUsers", "/allDrivers").permitAll()
+                .antMatchers("/", "/login", "home", "/registration").permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/welcome", true)
+                .defaultSuccessUrl("/home", true)
                 .successHandler(simpleAuthenticationSuccessHandler)
                 .permitAll()
                 .and()
                 .logout()
+                //.logoutUrl("/logout_success")
+                //.logoutSuccessUrl("/logout")
                 .logoutSuccessHandler(simpleLogoutSuccessHandler)
-                .logoutUrl("/logout")
-                //.invalidateHttpSession(true)
-                .logoutSuccessUrl("/logout")
-                //.deleteCookies("JSESSIONID")
                 .permitAll();
-    }
-
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/webjars/**");
     }
 
     @Bean
