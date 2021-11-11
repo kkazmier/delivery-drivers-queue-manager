@@ -75,7 +75,17 @@ public class UserController implements HttpSessionBindingListener {
         return "welcome";
     }
 
-    @GetMapping("/home")
+//    @GetMapping("/logout")
+//    public String logout(Model model) {
+//        return "logout";
+//    }
+//
+//    @PostMapping("/logout")
+//    public String logout() {
+//        return "logout";
+//    }
+
+    @GetMapping({"/", "/home"})
     public String home(Authentication authentication) {
         return "home.html";
     }
@@ -84,5 +94,11 @@ public class UserController implements HttpSessionBindingListener {
     @ResponseBody
     public List<String> getLoggedUsers(Model model) {
         return activeUserStore.getUsers();
+    }
+
+    @GetMapping("/allUsers")
+    @ResponseBody
+    public List<User> allUsers(Model model) {
+        return userService.getAllUsers();
     }
 }
