@@ -39,19 +39,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/login", "home", "/registration").permitAll()
+                .antMatchers("/login", "/home", "/registration").permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/home", true)
+                .defaultSuccessUrl("/welcome", true)
                 .successHandler(simpleAuthenticationSuccessHandler)
                 .permitAll()
                 .and()
                 .logout()
                 //.logoutUrl("/logout_success")
-                //.logoutSuccessUrl("/logout")
+                .logoutSuccessUrl("/home")
                 .logoutSuccessHandler(simpleLogoutSuccessHandler)
                 .permitAll();
     }

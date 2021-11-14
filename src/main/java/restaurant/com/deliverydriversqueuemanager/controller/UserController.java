@@ -7,16 +7,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import restaurant.com.deliverydriversqueuemanager.model.User;
 import restaurant.com.deliverydriversqueuemanager.service.SecurityService;
 import restaurant.com.deliverydriversqueuemanager.service.UserService;
 import restaurant.com.deliverydriversqueuemanager.util.ActiveUserStore;
 import restaurant.com.deliverydriversqueuemanager.util.UserValidator;
 
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionBindingListener;
 import java.util.List;
 
@@ -59,7 +58,7 @@ public class UserController implements HttpSessionBindingListener {
     @GetMapping("/login")
     public String login(Model model, String error, String logout, Authentication authentication) {
         if (securityService.isAuthenticated()) {
-            return "redirect:/";
+            return "redirect:/welcome";
         }
         if (error != null) {
             model.addAttribute("error", "Your username and password is invalid.");
@@ -70,7 +69,14 @@ public class UserController implements HttpSessionBindingListener {
         return "login";
     }
 
-    @GetMapping("/welcome")
+//    @RequestMapping(value = "/login", method = RequestMethod.POST)
+//    public String processLoginForm(HttpSession session, @ModelAttribute("user") User user,
+//                                   BindingResult result, Model model, final RedirectAttributes redirectAttributes) {
+//        //what goes here?
+//        return "redirect:/welcome";
+//    }
+
+    @GetMapping({"/", "/welcome"})
     public String welcome(Model model) {
         return "welcome";
     }
@@ -85,9 +91,9 @@ public class UserController implements HttpSessionBindingListener {
 //        return "logout";
 //    }
 
-    @GetMapping({"/", "/home"})
+    @GetMapping("/home")
     public String home(Authentication authentication) {
-        return "home.html";
+        return "home";
     }
 
     @GetMapping("/loggedUsers")
