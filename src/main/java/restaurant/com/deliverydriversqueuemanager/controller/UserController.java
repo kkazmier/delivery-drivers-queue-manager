@@ -8,15 +8,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import restaurant.com.deliverydriversqueuemanager.model.Driver;
-import restaurant.com.deliverydriversqueuemanager.model.DriverStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import restaurant.com.deliverydriversqueuemanager.model.User;
-import restaurant.com.deliverydriversqueuemanager.service.DriverService;
 import restaurant.com.deliverydriversqueuemanager.service.SecurityService;
 import restaurant.com.deliverydriversqueuemanager.service.UserService;
 import restaurant.com.deliverydriversqueuemanager.util.ActiveUserStore;
 import restaurant.com.deliverydriversqueuemanager.util.UserValidator;
 
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionBindingListener;
 import java.util.List;
 
@@ -24,15 +23,13 @@ import java.util.List;
 public class UserController implements HttpSessionBindingListener {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
-    private final DriverService driverService;
     private SecurityService securityService;
     private UserValidator userValidator;
     private ActiveUserStore activeUserStore;
 
     @Autowired
-    public UserController(UserService userService, DriverService driverService, SecurityService securityService, UserValidator userValidator, ActiveUserStore activeUserStore) {
+    public UserController(UserService userService, SecurityService securityService, UserValidator userValidator, ActiveUserStore activeUserStore) {
         this.userService = userService;
-        this.driverService = driverService;
         this.securityService = securityService;
         this.userValidator = userValidator;
         this.activeUserStore = activeUserStore;
@@ -53,14 +50,8 @@ public class UserController implements HttpSessionBindingListener {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-        Driver driver = new Driver();
-        driver.setDriverStatus(DriverStatus.UNDEFINED);
-        driver.setUser(userForm);
-        userForm.setDriver(driver);
         userService.save(userForm);
-        driverService.save(driver);
-        logger.info(userForm.toString());
-        //securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
+        securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
         return "redirect:/welcome";
     }
 
@@ -78,14 +69,11 @@ public class UserController implements HttpSessionBindingListener {
         return "login";
     }
 
-    @GetMapping({"/logout"})
-    public String logout() {
-        return "redirect:/welcome";
-    }
-
-//    @PostMapping({"/logout"})
-//    public String logout(Model model) {
-//        return "logout";
+//    @RequestMapping(value = "/login", method = RequestMethod.POST)
+//    public String processLoginForm(HttpSession session, @ModelAttribute("user") User user,
+//                                   BindingResult result, Model model, final RedirectAttributes redirectAttributes) {
+//        //what goes here?
+//        return "redirect:/welcome";
 //    }
 
     @GetMapping({"/", "/welcome"})
@@ -103,7 +91,7 @@ public class UserController implements HttpSessionBindingListener {
 //        return "logout";
 //    }
 
-    @GetMapping({"/", "/home"})
+    @GetMapping("/home")
     public String home(Authentication authentication) {
         return "home";
     }
@@ -111,19 +99,7 @@ public class UserController implements HttpSessionBindingListener {
     @GetMapping("/loggedUsers")
     @ResponseBody
     public List<String> getLoggedUsers(Model model) {
-        return activeUserStore.users;
-    }
-
-    @GetMapping("/allUsers")
-    @ResponseBody
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
-    }
-
-    @GetMapping("/deleteAllUsers")
-    @ResponseBody
-    public void deleteAllUsers() {
-        userService.deleteAll();
+        return activeUserStore.getUsers();
     }
 
     @GetMapping("/allUsers")
