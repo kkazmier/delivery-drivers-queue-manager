@@ -8,14 +8,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import restaurant.com.deliverydriversqueuemanager.model.Driver;
 import restaurant.com.deliverydriversqueuemanager.model.User;
+import restaurant.com.deliverydriversqueuemanager.service.DriverServiceImpl;
 import restaurant.com.deliverydriversqueuemanager.service.SecurityService;
 import restaurant.com.deliverydriversqueuemanager.service.UserService;
 import restaurant.com.deliverydriversqueuemanager.util.ActiveUserStore;
 import restaurant.com.deliverydriversqueuemanager.util.UserValidator;
 
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionBindingListener;
 import java.util.List;
 
@@ -23,13 +23,15 @@ import java.util.List;
 public class UserController implements HttpSessionBindingListener {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
+    private final DriverServiceImpl driverService;
     private SecurityService securityService;
     private UserValidator userValidator;
     private ActiveUserStore activeUserStore;
 
     @Autowired
-    public UserController(UserService userService, SecurityService securityService, UserValidator userValidator, ActiveUserStore activeUserStore) {
+    public UserController(UserService userService, DriverServiceImpl driverService, SecurityService securityService, UserValidator userValidator, ActiveUserStore activeUserStore) {
         this.userService = userService;
+        this.driverService = driverService;
         this.securityService = securityService;
         this.userValidator = userValidator;
         this.activeUserStore = activeUserStore;
@@ -40,7 +42,8 @@ public class UserController implements HttpSessionBindingListener {
         if (securityService.isAuthenticated()) {
             return "redirect:/";
         }
-        model.addAttribute("userForm", new User());
+        User user = new User();
+        model.addAttribute("userForm", user);
         return "registration";
     }
 
@@ -50,13 +53,16 @@ public class UserController implements HttpSessionBindingListener {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
+        if (userForm.getDriver() == null) {
+            userForm.setDriver(driverService.save(new Driver()));
+        }
         userService.save(userForm);
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
-        return "redirect:/welcome";
+        return "redirect:/home";
     }
 
     @GetMapping("/login")
-    public String login(Model model, String error, String logout, Authentication authentication) {
+    public String login(Model model, String error, String logout) {
         if (securityService.isAuthenticated()) {
             return "redirect:/welcome";
         }
@@ -102,9 +108,29 @@ public class UserController implements HttpSessionBindingListener {
         return activeUserStore.getUsers();
     }
 
+    @GetMapping("/loggedUser")
+    @ResponseBody
+    public String getLoggedUser(Model model, Authentication authentication) {
+        return authentication.getName();
+    }
+
     @GetMapping("/allUsers")
     @ResponseBody
     public List<User> allUsers(Model model) {
         return userService.getAllUsers();
+    }
+
+    @GetMapping("/deleteAllUsers")
+    @ResponseBody
+    public void deleteAllUsers() {
+        userService.deleteAll();
+    }
+
+    @GetMapping("/setWorkplace/{workplace}")
+    String setWorkPlace(@PathVariable String workplace, Model model) {
+        String username = securityService.getLoggedUsername();
+        userService.setWorkplace(username, workplace);
+        model.addAttribute("workplace", workplace);
+        return "workplace";
     }
 }
