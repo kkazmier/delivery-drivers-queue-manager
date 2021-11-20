@@ -36,8 +36,7 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
         logger.info("onAuthenticationSuccess()");
         HttpSession session = request.getSession(false);
         if (session != null) {
-            logger.info("Login: " + authentication.getName());
-            logger.info("user store in null: " + (activeUserStore == null));
+            logger.info(authentication.getName() + " logged.");
             LoggedUser user = new LoggedUser(authentication.getName(), activeUserStore);
             session.setAttribute("user", user);
         }
