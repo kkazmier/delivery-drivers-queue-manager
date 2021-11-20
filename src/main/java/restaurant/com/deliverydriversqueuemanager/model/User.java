@@ -13,12 +13,11 @@ import java.time.LocalDateTime;
 @Setter
 public class User extends BaseEntity {
     private String username;
-    private String firstName;
-    private String lastName;
     private String password;
     @Transient
     private String passwordConfirm;
     private Boolean isLogged;
+    private String workPlace;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "driver_id", referencedColumnName = "id")
@@ -29,8 +28,6 @@ public class User extends BaseEntity {
     public String toString() {
         return "User{" +
                 "username='" + username + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
                 ", password='" + password + '\'' +
                 ", passwordConfirm='" + passwordConfirm + '\'' +
                 ", isLogged=" + isLogged +
