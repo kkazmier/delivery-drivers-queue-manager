@@ -53,5 +53,7 @@ public class SecurityServiceImpl implements SecurityService {
         }
     }
 
-
+    public String getLoggedUsername() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
 }
