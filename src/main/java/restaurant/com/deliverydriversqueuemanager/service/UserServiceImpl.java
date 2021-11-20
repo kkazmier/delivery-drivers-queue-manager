@@ -46,4 +46,21 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
+    @Override
+    public void deleteAll() {
+        userRepository.deleteAll();
+    }
+
+    @Override
+    public void setWorkplace(String username, String workplace) {
+        User user = userRepository.findByUsername(username);
+        if(user != null) {
+            user.setWorkPlace(workplace);
+            userRepository.save(user);
+            logger.info("Set workplace: " + workplace);
+        }
+    }
+
+
 }
