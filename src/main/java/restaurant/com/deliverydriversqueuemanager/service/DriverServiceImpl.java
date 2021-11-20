@@ -18,4 +18,9 @@ public class DriverServiceImpl implements DriverService {
     public Driver save(Driver driver) {
         return driverRepository.save(driver);
     }
+
+    @Override
+    public void setWorkplace(String workplace) {
+
+    }
 }
