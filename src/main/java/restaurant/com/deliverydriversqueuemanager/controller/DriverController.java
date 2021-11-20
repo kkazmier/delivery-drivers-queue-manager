@@ -37,7 +37,9 @@ public class DriverController {
     @ResponseBody
     public String beginWork() {
         username = getUsernameCurrentLoggedUser();
+        logger.info("Begin work: " + username);
         user = userService.findByUsername(username);
+        logger.info("User: " + user);
         logger.info(user.toString());
         driver = user.getDriver();
         driver.setDriverStatus(DriverStatus.READY);
