@@ -7,8 +7,6 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import restaurant.com.deliverydriversqueuemanager.model.Driver;
@@ -18,8 +16,6 @@ import restaurant.com.deliverydriversqueuemanager.service.DriverServiceImpl;
 import restaurant.com.deliverydriversqueuemanager.service.UserServiceImpl;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.List;
 
 @Controller
 @RequestMapping("driver")
@@ -37,17 +33,17 @@ public class DriverController {
         this.driverService = driverService;
     }
 
-    @RequestMapping("/ready")
+    @RequestMapping("/beginWork")
     @ResponseBody
-    public String beginWork(Model model) {
+    public String beginWork() {
         username = getUsernameCurrentLoggedUser();
+        logger.info("Begin work: " + username);
         user = userService.findByUsername(username);
+        logger.info("User: " + user);
+        logger.info(user.toString());
         driver = user.getDriver();
         driver.setDriverStatus(DriverStatus.READY);
         driver.setChangeDriverStatusTime(LocalDateTime.now());
-        logger.info(driver.getChangeDriverStatusTime().toLocalTime().toString().substring(0, 8));
-        driver.setChangeDriverStatusTimeStr(driver.getChangeDriverStatusTime().toLocalTime().toString().substring(0, 8));
-        logger.info(driver.toString());
         driverService.save(driver);
         return "Begin work: " + username + driver.getChangeDriverStatusTime() + " " + driver.getDriverStatus();
     }
@@ -96,11 +92,5 @@ public class DriverController {
         } else {
             return "Name not found";
         }
-    }
-
-    @GetMapping("/allDrivers")
-    @ResponseBody
-    public List<Driver> getAllDrivers() {
-        return driverService.findAll();
     }
 }
