@@ -15,13 +15,16 @@ import java.io.IOException;
 @Component("simpleLogoutSuccessHandler")
 public class SimpleLogoutSuccessHandler implements LogoutSuccessHandler {
     private static final Logger logger = LoggerFactory.getLogger(SimpleLogoutSuccessHandler.class);
+
     @Override
     public void onLogoutSuccess(HttpServletRequest request,
                                 HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException {
         logger.info("onLogoutSuccess()");
         HttpSession session = request.getSession();
-        if (session != null){
+        if (session != null) {
+            String username = authentication.getName();
+            logger.info("Logout: " + username);
             session.removeAttribute("user");
         }
     }
