@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import restaurant.com.deliverydriversqueuemanager.model.Driver;
+import restaurant.com.deliverydriversqueuemanager.model.DriverStatus;
 import restaurant.com.deliverydriversqueuemanager.model.User;
 import restaurant.com.deliverydriversqueuemanager.service.DriverServiceImpl;
 import restaurant.com.deliverydriversqueuemanager.service.SecurityService;
@@ -17,6 +18,7 @@ import restaurant.com.deliverydriversqueuemanager.util.ActiveUserStore;
 import restaurant.com.deliverydriversqueuemanager.util.UserValidator;
 
 import javax.servlet.http.HttpSessionBindingListener;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -54,7 +56,11 @@ public class UserController implements HttpSessionBindingListener {
             return "registration";
         }
         if (userForm.getDriver() == null) {
-            userForm.setDriver(driverService.save(new Driver()));
+            Driver driver = new Driver();
+            driver.setDriverStatus(DriverStatus.UNDEFINED);
+            driver.setChangeDriverStatusTime(LocalDateTime.now());
+            driver.setChangeDriverStatusTimeStr(LocalDateTime.now().toString());
+            userForm.setDriver(driverService.save(driver));
         }
         userService.save(userForm);
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
