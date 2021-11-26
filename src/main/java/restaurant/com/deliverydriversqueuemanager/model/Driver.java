@@ -15,6 +15,10 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class Driver extends BaseEntity {
+    public Driver() {
+        driverStatus = DriverStatus.UNDEFINED;
+    }
+
     @JsonBackReference
     @OneToOne(mappedBy = "driver", cascade = CascadeType.ALL)
     private User user;
