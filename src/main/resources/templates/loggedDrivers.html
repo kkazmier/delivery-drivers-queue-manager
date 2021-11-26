@@ -9,7 +9,7 @@
 
 <body>
 <h2>Zalogowani kierowcy</h2>
-<!--    <div th:each="driver : ${readyDrivers}">-->
+<!--    <div th:each="driver : ${loggedDrivers}">-->
 <!--        <p th:text="${driver.user.username}">user</p>-->
 <!--    </div>-->
 
@@ -17,18 +17,20 @@
     <thead class="table-dark">
     <tr>
         <th>#</th>
+        <th>Login</th>
         <th>Imię</th>
         <th>Nazwisko</th>
         <th>Status</th>
         <th>Zmiana statusu</th>
     </tr>
     </thead>
-    <tr th:each="driver, custStat : ${readyDrivers}">
+    <tr th:each="driver, custStat : ${loggedDrivers}">
         <td th:text="${custStat.count}"></td>
+        <td th:text="${driver.user.username}"></td>
         <td th:text="${driver.user.firstName}"></td>
         <td th:text="${driver.user.lastName}"></td>
-        <td th:text="${driver.user.driverStatus}"></td>
-        <td th:text="${driver.changeDriverStatusTimeStr}"></td>
+        <td th:text="${driver.driverStatus}"></td>
+<!--        <td th:text="${driver.changeDriverStatusTimeStr}"></td>-->
     </tr>
 </table>
 
