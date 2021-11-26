@@ -37,6 +37,8 @@ public class QueueDriversServiceImpl implements QueueDriversService {
     public List<Driver> gelLoggedDrivers() {
         List<Driver> drivers = new ArrayList<>();
         driverRepository.findAll().stream().forEach(driver -> {
+            logger.info("driver: " + driver.toString());
+            logger.info("users from userstore: " + userStore.users.toString());
             if (userStore.users.contains(driver.getUser().getUsername())) {
                 drivers.add(driver);
             }
