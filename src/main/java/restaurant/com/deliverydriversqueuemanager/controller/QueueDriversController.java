@@ -1,5 +1,7 @@
 package restaurant.com.deliverydriversqueuemanager.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import java.util.List;
 
 @Controller
 public class QueueDriversController {
+    private final Logger logger = LoggerFactory.getLogger(QueueDriversController.class);
     private QueueDriversServiceImpl queueDriversService;
 
     @Autowired
@@ -45,21 +48,25 @@ public class QueueDriversController {
         List<Driver> breakDrivers = new ArrayList<>();
         for (Driver driver: loggedDrivers) {
             String status = driver.getDriverStatus();
-            switch (status) {
-                case DriverStatus
-                        .READY: readyDrivers.add(driver); break;
-                case DriverStatus
-                        .BACK: backDrivers.add(driver); break;
-                case DriverStatus
-                        .DELIVERING: deliveringDrivers.add(driver); break;
-                case DriverStatus
-                        .BREAK: breakDrivers.add(driver); break;
+            if (status != null) {
+                switch (status) {
+                    case DriverStatus
+                            .READY: readyDrivers.add(driver); break;
+                    case DriverStatus
+                            .BACK: backDrivers.add(driver); break;
+                    case DriverStatus
+                            .DELIVERING: deliveringDrivers.add(driver); break;
+                    case DriverStatus
+                            .BREAK: breakDrivers.add(driver); break;
+                }
             }
         }
+        model.addAttribute("loggedDrivers", loggedDrivers);
         model.addAttribute("readyDrivers", readyDrivers);
         model.addAttribute("backDrivers", backDrivers);
         model.addAttribute("deliveringDrivers", deliveringDrivers);
         model.addAttribute("breakDrivers", breakDrivers);
+        logger.info(loggedDrivers.toString());
         return "loggedDrivers";
     }
 }
