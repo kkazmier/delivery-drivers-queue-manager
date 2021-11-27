@@ -88,7 +88,7 @@ public class UserController implements HttpSessionBindingListener {
 //        return "redirect:/welcome";
 //    }
 
-    @GetMapping({"/", "/welcome"})
+    @GetMapping({"/welcome"})
     public String welcome(Model model) {
         return "welcome";
     }
@@ -103,7 +103,7 @@ public class UserController implements HttpSessionBindingListener {
 //        return "logout";
 //    }
 
-    @GetMapping("/home")
+    @GetMapping({"/", "/home"})
     public String home(Authentication authentication) {
         return "home";
     }
