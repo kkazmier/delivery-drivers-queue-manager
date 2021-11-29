@@ -66,4 +66,16 @@ public class UserServiceImpl implements UserService {
     public void updateWorkplace(String username, String workplace) {
         userRepository.updateWorkplace(username, workplace);
     }
+
+    @Override
+    public String getFullNameUser(String username) {
+        logger.info("getFullNameUser()");
+        User user = userRepository.findByUsername(username);
+        String fullName = "";
+        if (user != null) {
+            fullName = user.getFirstName() + " " + user.getLastName();
+            logger.info("Full name: " + fullName);
+        }
+        return fullName;
+    }
 }

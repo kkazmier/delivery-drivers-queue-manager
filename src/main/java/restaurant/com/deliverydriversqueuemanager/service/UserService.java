@@ -12,4 +12,5 @@ public interface UserService {
     void deleteAll();
     void setWorkplace(String username, String workplace);
     void updateWorkplace(String username, String workplace);
+    String getFullNameUser(String username);
 }

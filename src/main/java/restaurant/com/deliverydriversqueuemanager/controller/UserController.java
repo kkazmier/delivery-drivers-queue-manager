@@ -105,7 +105,8 @@ public class UserController implements HttpSessionBindingListener {
 //    }
 
     @GetMapping({"/", "/home"})
-    public String home(Authentication authentication) {
+    public String home(Authentication authentication, Model model) {
+        model.addAttribute("loggedUser", userService.getFullNameUser(securityService.getLoggedUsername()));
         return "home";
     }
 
