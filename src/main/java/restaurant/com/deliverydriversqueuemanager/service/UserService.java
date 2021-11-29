@@ -11,4 +11,5 @@ public interface UserService {
     List<User> getAllUsers();
     void deleteAll();
     void setWorkplace(String username, String workplace);
+    void updateWorkplace(String username, String workplace);
 }
