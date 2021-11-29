@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import restaurant.com.deliverydriversqueuemanager.model.Driver;
 import restaurant.com.deliverydriversqueuemanager.model.DriverStatus;
 import restaurant.com.deliverydriversqueuemanager.model.User;
+import restaurant.com.deliverydriversqueuemanager.model.Workplace;
 import restaurant.com.deliverydriversqueuemanager.service.DriverServiceImpl;
 import restaurant.com.deliverydriversqueuemanager.service.SecurityService;
 import restaurant.com.deliverydriversqueuemanager.service.UserService;
