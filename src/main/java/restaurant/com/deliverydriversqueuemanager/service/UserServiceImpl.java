@@ -62,5 +62,8 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-
+    @Override
+    public void updateWorkplace(String username, String workplace) {
+        userRepository.updateWorkplace(username, workplace);
+    }
 }
