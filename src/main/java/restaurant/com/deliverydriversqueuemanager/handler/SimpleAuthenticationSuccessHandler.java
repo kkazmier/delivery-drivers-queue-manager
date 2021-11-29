@@ -3,12 +3,19 @@ package restaurant.com.deliverydriversqueuemanager.handler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+import restaurant.com.deliverydriversqueuemanager.model.Driver;
+import restaurant.com.deliverydriversqueuemanager.model.DriverStatus;
+import restaurant.com.deliverydriversqueuemanager.model.User;
+import restaurant.com.deliverydriversqueuemanager.model.Workplace;
+import restaurant.com.deliverydriversqueuemanager.service.UserServiceImpl;
 import restaurant.com.deliverydriversqueuemanager.util.ActiveUserStore;
 import restaurant.com.deliverydriversqueuemanager.util.LoggedUser;
 
@@ -16,16 +23,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 @Component("simpleAuthenticationSuccessHandler")
 public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     private static final Logger logger = LoggerFactory.getLogger(SimpleAuthenticationSuccessHandler.class);
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
     ActiveUserStore activeUserStore;
+    private UserServiceImpl userService;
 
     @Autowired
-    public SimpleAuthenticationSuccessHandler(ActiveUserStore activeUserStore) {
+    public SimpleAuthenticationSuccessHandler(ActiveUserStore activeUserStore, @Lazy UserServiceImpl userService) {
         logger.info("Login handle initiated.");
+        this.userService = userService;
         this.activeUserStore = activeUserStore;
     }
 
@@ -36,9 +46,11 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
         logger.info("onAuthenticationSuccess()");
         HttpSession session = request.getSession(false);
         if (session != null) {
-            logger.info(authentication.getName() + " logged.");
+            String username = authentication.getName();
+            resetUserValuesAfterLogin(username);
             LoggedUser user = new LoggedUser(authentication.getName(), activeUserStore);
             session.setAttribute("user", user);
+            logger.info(username + " logged.");
         }
         handle(request, response, authentication);
         clearAuthenticationAttributes(request);
@@ -96,5 +108,18 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
 //        } else {
 //            throw new IllegalStateException();
 //        }
+    }
+
+    public void resetUserValuesAfterLogin(String username) {
+        User user = userService.findByUsername(username);
+        if(user != null) {
+            Driver driver = user.getDriver();
+            //driver.setDriverStatus(DriverStatus.LOGIN);
+            //driver.setChangeDriverStatusTime(LocalDateTime.now());
+            //user.setWorkPlace(WorkPlace.NOWHERE);
+            userService.updateWorkplace(username, Workplace.NOWHERE);
+            //userService.save(user);
+            logger.info("Reset user values.");
+        }
     }
 }
