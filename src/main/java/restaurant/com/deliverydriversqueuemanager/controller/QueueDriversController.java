@@ -6,19 +6,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import restaurant.com.deliverydriversqueuemanager.model.Driver;
 import restaurant.com.deliverydriversqueuemanager.model.DriverStatus;
+import restaurant.com.deliverydriversqueuemanager.model.Workplace;
 import restaurant.com.deliverydriversqueuemanager.service.QueueDriversServiceImpl;
+import restaurant.com.deliverydriversqueuemanager.service.SecurityService;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class QueueDriversController {
     private final Logger logger = LoggerFactory.getLogger(QueueDriversController.class);
     private QueueDriversServiceImpl queueDriversService;
+    private SecurityService securityService;
 
     @Autowired
     public QueueDriversController(QueueDriversServiceImpl queueDriversService) {
@@ -40,13 +45,28 @@ public class QueueDriversController {
     @GetMapping("/loggedDrivers")
     String getLoggedDrivers(Model model) {
         List<Driver> loggedDrivers = queueDriversService.gelLoggedDrivers();
+        model.addAttribute("loggedDrivers", loggedDrivers);
+        return "loggedDrivers";
+    }
+
+    @GetMapping("/driversQueue")
+    String driversQueue() {
+        return "driversQueue";
+    }
+
+    @GetMapping("/pizzaDriversQueue")
+    String pizzaDriversQueue(Model model) {
+        List<Driver> loggedDrivers = queueDriversService.gelLoggedDrivers();
+        List<Driver> pizzaDrivers = loggedDrivers.stream()
+                .filter(driver -> driver.getUser().getWorkPlace().equals(Workplace.PIZZA))
+                .collect(Collectors.toList());
         Comparator<Driver> cmp = Comparator.comparing(Driver::getChangeDriverStatusTime);
-        loggedDrivers.sort(cmp);
+        pizzaDrivers.sort(cmp);
         List<Driver> readyDrivers = new ArrayList<>();
         List<Driver> deliveringDrivers = new ArrayList<>();
         List<Driver> backDrivers = new ArrayList<>();
         List<Driver> breakDrivers = new ArrayList<>();
-        for (Driver driver: loggedDrivers) {
+        for (Driver driver: pizzaDrivers) {
             String status = driver.getDriverStatus();
             if (status != null) {
                 switch (status) {
@@ -62,11 +82,19 @@ public class QueueDriversController {
             }
         }
         model.addAttribute("loggedDrivers", loggedDrivers);
-        model.addAttribute("readyDrivers", readyDrivers);
-        model.addAttribute("backDrivers", backDrivers);
-        model.addAttribute("deliveringDrivers", deliveringDrivers);
-        model.addAttribute("breakDrivers", breakDrivers);
-        logger.info(loggedDrivers.toString());
-        return "loggedDrivers";
+        model.addAttribute("pizzaDrivers", pizzaDrivers);
+        model.addAttribute("pizzaReadyDrivers", readyDrivers);
+        model.addAttribute("pizzaBackDrivers", backDrivers);
+        model.addAttribute("pizzaDeliveringDrivers", deliveringDrivers);
+        model.addAttribute("pizzaBreakDrivers", breakDrivers);
+        logger.info(pizzaDrivers.toString());
+
+        return "pizzaDriversQueue";
+    }
+
+    @GetMapping("/setStatusToReady")
+    String setWorkPlace() {
+        String username = securityService.getLoggedUsername();
+        return "workplace";
     }
 }
