@@ -27,7 +27,7 @@
     <h2>Witaj <span th:text="${loggedUser}"></span></h2>
     <h2>Zostałeś pomyślnie zalogowany</h2>
     <a href="/driversQueue" class="btn btn-success float-right">Kolejka kierowców</a>
-    <a href="/workPlace" class="btn btn-primary float-left">Wybierz miejsce pracy</a>
+    <a href="/workplace" class="btn btn-primary float-left">Wybierz miejsce pracy</a>
     <a href="/loggedDrivers" class="btn btn-primary float-left">Zalogowani kierowcy</a>
     <form th:action="@{/logout}" method="POST">
         <input class="btn btn-lg btn-secondary btn-block" type="submit" value="Wyloguj"/>
