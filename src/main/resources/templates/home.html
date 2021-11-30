@@ -26,7 +26,7 @@
 <div class="container" sec:authorize="isAuthenticated()">
     <h2>Witaj <span th:text="${loggedUser}"></span></h2>
     <h2>Zostałeś pomyślnie zalogowany</h2>
-    <a th:action="@{/queue}" method="GET" class="btn btn-success float-right">Kolejka kierowców</a>
+    <a href="/driversQueue" class="btn btn-success float-right">Kolejka kierowców</a>
     <a href="/workPlace" class="btn btn-primary float-left">Wybierz miejsce pracy</a>
     <a href="/loggedDrivers" class="btn btn-primary float-left">Zalogowani kierowcy</a>
     <form th:action="@{/logout}" method="POST">
