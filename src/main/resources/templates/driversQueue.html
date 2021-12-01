@@ -7,10 +7,23 @@
 </head>
 
 <body>
-    <h2>Kolejka kierowców</h2>
-    <h2>Wybierz lokal</h2>
-    <a href="/pizzaDriversQueue" class="btn btn-success float-right">pizza</a>
-    <a href="/burgerDriversQueue" class="btn btn-success float-right">burger</a>
+    <div class="card" style="width: 24rem;">
+        <div class="card-header">
+            <h2>Kolejka kierowców</h2>
+        </div>
+        <div class="card-body">
+            <h2>Wybierz lokal</h2>
+            <a href="/pizzaDriversQueue" class="btn btn-success float-right">pizza</a>
+            <a href="/burgerDriversQueue" class="btn btn-success float-right">burger</a>
+        </div>
+        <div class="card-footer">
+            <form th:action="@{/logout}" method="POST">
+                <input class="btn btn-lg btn-secondary btn-block" type="submit" value="Wyloguj"/>
+            </form>
+        </div>
+    </div>
+
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
