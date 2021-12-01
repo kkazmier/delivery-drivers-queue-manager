@@ -26,13 +26,13 @@
 <div class="card" style="width: 24rem;" sec:authorize="isAuthenticated()">
     <div class="card-header">
         <h3 style="text-align:center">Witaj</h3>
-        <h3 style="text-align:center"><span th:text="${loggedUser}"></span></h3>
+        <h3 style="background-color:powderblue;text-align:center"><span th:text="${loggedUser}"></span></h3>
         <h5 style="text-align:center">Zostałeś pomyślnie zalogowany</h5>
     </div>
     <div class="card-body">
         <a href="/driversQueue" class="btn btn-success float-right">Kolejka kierowców</a>
-        <a href="/workplace" class="btn btn-primary float-left">Wybierz miejsce pracy</a>
-        <a href="/loggedDrivers" class="btn btn-primary float-left">Zalogowani kierowcy</a>
+        <a href="/workplace" class="btn btn-danger float-left">Wybierz miejsce pracy</a>
+        <a href="/loggedDrivers" class="btn btn-primary float-right">Zalogowani kierowcy</a>
     </div>
     <div class="card-footer">
         <form th:action="@{/logout}" method="POST">
