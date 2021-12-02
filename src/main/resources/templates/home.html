@@ -9,7 +9,7 @@
 
 <body>
 
-<div class="card mw-100" style="width: 24rem;" sec:authorize="!isAuthenticated()">
+<div class="card mw-100" sec:authorize="!isAuthenticated()">
     <img src="https://icon-library.com/images/queue-icon/queue-icon-6.jpg" class="card-img-top" alt="...">
     <div class="card-body">
         <h2 class="card-title text-center">Witamy w programie</h2>
@@ -23,7 +23,7 @@
     </div>
 </div>
 
-<div class="card mw-100" style="width: 24rem;" sec:authorize="isAuthenticated()">
+<div class="card mw-100" sec:authorize="isAuthenticated()">
     <div class="card-header">
         <h3 style="text-align:center">Witaj</h3>
         <h3 style="background-color:powderblue;text-align:center"><span th:text="${loggedUser}"></span></h3>
