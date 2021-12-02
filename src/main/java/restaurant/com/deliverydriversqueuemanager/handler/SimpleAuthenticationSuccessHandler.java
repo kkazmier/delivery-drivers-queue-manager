@@ -15,6 +15,7 @@ import restaurant.com.deliverydriversqueuemanager.model.Driver;
 import restaurant.com.deliverydriversqueuemanager.model.DriverStatus;
 import restaurant.com.deliverydriversqueuemanager.model.User;
 import restaurant.com.deliverydriversqueuemanager.model.Workplace;
+import restaurant.com.deliverydriversqueuemanager.service.DriverServiceImpl;
 import restaurant.com.deliverydriversqueuemanager.service.UserServiceImpl;
 import restaurant.com.deliverydriversqueuemanager.util.ActiveUserStore;
 import restaurant.com.deliverydriversqueuemanager.util.LoggedUser;
@@ -31,11 +32,13 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
     ActiveUserStore activeUserStore;
     private UserServiceImpl userService;
+    private DriverServiceImpl driverService;
 
     @Autowired
-    public SimpleAuthenticationSuccessHandler(ActiveUserStore activeUserStore, @Lazy UserServiceImpl userService) {
+    public SimpleAuthenticationSuccessHandler(ActiveUserStore activeUserStore, @Lazy UserServiceImpl userService, @Lazy DriverServiceImpl driverService) {
         logger.info("Login handle initiated.");
         this.userService = userService;
+        this.driverService = driverService;
         this.activeUserStore = activeUserStore;
     }
 
@@ -48,8 +51,14 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
         if (session != null) {
             String username = authentication.getName();
             resetUserValuesAfterLogin(username);
-            LoggedUser user = new LoggedUser(authentication.getName(), activeUserStore);
-            session.setAttribute("user", user);
+            LoggedUser loggedUser = new LoggedUser(authentication.getName(), activeUserStore);
+            User user = userService.findByUsername(username);
+            if (user != null) {
+                Driver driver = user.getDriver();
+                driver.setDriverStatus(DriverStatus.UNDEFINED);
+                driverService.save(driver);
+            }
+            session.setAttribute("user", loggedUser);
             logger.info(username + " logged.");
         }
         handle(request, response, authentication);
