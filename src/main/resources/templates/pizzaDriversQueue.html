@@ -20,27 +20,56 @@
     </div>
     <div class="card-footer">
         <a href="/home" class="btn btn-large btn-secondary float-left">Wróć</a>
+        <a href="/pizzaDriversQueue" class="btn btn-large btn-info float-right">Odśwież</a>
     </div>
 </div>
 
 <table class="table table-striped">
     <thead class="table-dark">
-    <tr>
-        <th>#</th>
-        <th>Imię</th>
-        <th>Nazwisko</th>
-        <th>Status</th>
-        <th>Zmiana statusu</th>
-    </tr>
+        <tr>
+            <th>#</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Status</th>
+            <th>Zmiana statusu</th>
+        </tr>
     </thead>
-    <tr th:each="driver, custStat : ${pizzaDrivers}">
+    <tr class="table-success" th:each="driver, custStat : ${pizzaReadyDrivers}">
         <td th:text="${custStat.count}"></td>
         <td th:text="${driver.user.firstName}"></td>
         <td th:text="${driver.user.lastName}"></td>
         <td th:text="${driver.driverStatus}"></td>
         <td th:text="${driver.changeDriverStatusTime}"></td>
-        <!--        <td th:text="${driver.changeDriverStatusTimeStr}"></td>-->
     </tr>
+    <tr class="table-primary" th:each="driver, custStat : ${pizzaBackDrivers}">
+        <td th:text="${custStat.count}"></td>
+        <td th:text="${driver.user.firstName}"></td>
+        <td th:text="${driver.user.lastName}"></td>
+        <td th:text="${driver.driverStatus}"></td>
+        <td th:text="${driver.changeDriverStatusTime}"></td>
+    </tr>
+    <tr class="table-warning" th:each="driver, custStat : ${pizzaDeliveringDrivers}">
+        <td th:text="${custStat.count}"></td>
+        <td th:text="${driver.user.firstName}"></td>
+        <td th:text="${driver.user.lastName}"></td>
+        <td th:text="${driver.driverStatus}"></td>
+        <td th:text="${driver.changeDriverStatusTime}"></td>
+    </tr>
+    <tr class="table-secondary" th:each="driver, custStat : ${pizzaBreakDrivers}">
+        <td th:text="${custStat.count}"></td>
+        <td th:text="${driver.user.firstName}"></td>
+        <td th:text="${driver.user.lastName}"></td>
+        <td th:text="${driver.driverStatus}"></td>
+        <td th:text="${driver.changeDriverStatusTime}"></td>
+    </tr>
+
+<!--    <tr th:each="driver, custStat : ${pizzaDrivers}">-->
+<!--        <td th:text="${custStat.count}"></td>-->
+<!--        <td th:text="${driver.user.firstName}"></td>-->
+<!--        <td th:text="${driver.user.lastName}"></td>-->
+<!--        <td th:text="${driver.driverStatus}"></td>-->
+<!--        <td th:text="${driver.changeDriverStatusTime}"></td>-->
+<!--    </tr>-->
 </table>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
