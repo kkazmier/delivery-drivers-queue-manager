@@ -34,7 +34,6 @@ public class DriverController {
     }
 
     @RequestMapping("/beginWork")
-    @ResponseBody
     public String beginWork() {
         username = getUsernameCurrentLoggedUser();
         logger.info("Begin work: " + username);
@@ -45,11 +44,10 @@ public class DriverController {
         driver.setDriverStatus(DriverStatus.READY);
         driver.setChangeDriverStatusTime(LocalDateTime.now());
         driverService.save(driver);
-        return "Begin work: " + username + driver.getChangeDriverStatusTime() + " " + driver.getDriverStatus();
+        return "redirect:/pizzaDriversQueue";
     }
 
     @RequestMapping("/beginDelivery")
-    @ResponseBody
     public String beginDelivery() {
         username = getUsernameCurrentLoggedUser();
         user = userService.findByUsername(username);
@@ -57,11 +55,10 @@ public class DriverController {
         driver.setDriverStatus(DriverStatus.DELIVERING);
         driver.setChangeDriverStatusTime(LocalDateTime.now());
         driverService.save(driver);
-        return "Begin delivery: " + username + driver.getChangeDriverStatusTime() + " " + driver.getDriverStatus();
+        return "redirect:/pizzaDriversQueue";
     }
 
     @RequestMapping("/endingDelivery")
-    @ResponseBody
     public String endingDelivery() {
         username = getUsernameCurrentLoggedUser();
         user = userService.findByUsername(username);
@@ -69,11 +66,10 @@ public class DriverController {
         driver.setDriverStatus(DriverStatus.BACK);
         driver.setChangeDriverStatusTime(LocalDateTime.now());
         driverService.save(driver);
-        return "Ending delivery: " + username + driver.getChangeDriverStatusTime() + " " + driver.getDriverStatus();
+        return "redirect:/pizzaDriversQueue";
     }
 
     @RequestMapping("/beginBreak")
-    @ResponseBody
     public String beginBreak() {
         username = getUsernameCurrentLoggedUser();
         user = userService.findByUsername(username);
@@ -81,7 +77,7 @@ public class DriverController {
         driver.setDriverStatus(DriverStatus.BREAK);
         driver.setChangeDriverStatusTime(LocalDateTime.now());
         driverService.save(driver);
-        return "Begin break: " + username + driver.getChangeDriverStatusTime() + " " + driver.getDriverStatus();
+        return "redirect:/pizzaDriversQueue";
     }
 
     public String getUsernameCurrentLoggedUser() {
