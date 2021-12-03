@@ -11,31 +11,35 @@
 
 <div class="card mw-100" sec:authorize="!isAuthenticated()">
     <img src="https://icon-library.com/images/queue-icon/queue-icon-6.jpg" class="card-img-top" alt="...">
-    <div class="card-body">
-        <h2 class="card-title text-center">Witaj w programie</h2>
-        <h1 class="card-title text-center">kolejka kierowców</h1>
+    <div class="card-body mw-100">
+        <h1 class="card-title text-center display-1 font-weight-bold">kolejka kierowców</h1>
     </div>
-    <div class="card-body bg-light">
-<!--        <form th:action="@{/login}" method="POST">-->
-        <a href="/login" class="btn btn-primary float-left mw-100">Logowanie</a>
-<!--        </form>-->
-        <a href="/registration"  class="btn btn-success float-right mw-100">Rejestracja</a>
+    <div class="card-body bg-light mw-100">
+        <div class="row">
+            <a href="/login" class="btn btn-primary btn-block col"><h1 display-1 font-weight-bold>Logowanie</h1></a>
+            <span class="col"></span>
+            <a href="/registration"  class="btn btn-success btn-block col"><h1 display-1 font-weight-bold>Rejestracja</h1></a>
+        </div>
     </div>
 </div>
 
 <div class="card mw-100" sec:authorize="isAuthenticated()">
     <div class="card-header">
-        <h3 style="text-align:center">Witaj</h3>
-        <h3 style="background-color:powderblue;text-align:center"><span th:text="${loggedUser}"></span></h3>
+        <h1 style="text-align:center display-1 font-weight-bold">Witaj</h1>
+        <h1 style="background-color:powderblue;text-align:center display-1 font-weight-bold"><span th:text="${loggedUser}"></span></h1>
     </div>
-    <div class="card-body">
-        <a href="/driversQueue" class="btn btn-success float-right">Kolejka kierowców</a>
-        <a href="/workplace" class="btn btn-danger float-left">Wybierz miejsce pracy</a>
-        <a href="/loggedDrivers" class="btn btn-primary float-right">Zalogowani kierowcy</a>
+    <div class="card-body mw-100">
+        <div class="row">
+            <a href="/workplace" class="btn btn-danger col"><h1 display-1 font-weight-bold>Wybierz miejsce pracy</h1></a>
+            <span class="col"></span>
+            <a href="/driversQueue" class="btn btn-success col"><h1 display-1 font-weight-bold>Kolejka kierowców</h1></a>
+            <a href="/loggedDrivers" class="btn btn-primary col"><h1 display-1 font-weight-bold>Zalogowani kierowcy</h1></a>
+        </div>
     </div>
-    <div class="card-footer">
+    <div class="card-footer mw-100">
+        <div class="btn btn-lg display-1 font-weight-bold"></div>
         <form th:action="@{/logout}" method="POST">
-            <input class="btn btn-lg btn-secondary btn-block" type="submit" value="Wyloguj"/>
+            <input class="btn btn-lg display-1 font-weight-bold btn-secondary btn-block" type="submit" value="Wyloguj"/>
         </form>
     </div>
 </div>

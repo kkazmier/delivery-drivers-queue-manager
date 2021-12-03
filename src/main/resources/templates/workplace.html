@@ -8,20 +8,27 @@
 </head>
 
 <body>
-<div class="card" style="width: 24rem;">
-    <div class="card-header">
-        <h2>Wybierz miejsce pracy</h2>
+<div class="card mw-100">
+    <div class="card-header mw-100">
+        <h1>Wybierz miejsce pracy</h1>
     </div>
-    <div class="card-body">
-        <p>
-            <a href="/" th:href="@{'/setWorkplace/'+'PIZZA'}" class="btn btn-large btn-success">Pizza</a>
-            <a href="/" th:href="@{'/setWorkplace/'+'BURGER'}" class="btn btn-large btn-warning">Burger</a>
-            <a href="/pizzaDriversQueue" class="btn btn-info float-right">pizza - kolejka</a>
-        </p>
-        <h2>Wybrano</h2>
-        <h2><p th:text="${workplace}"></p></h2>
-        <a href="/home" class="btn btn-large btn-secondary">Wróć</a>
+    <div class="card-body mw-100">
+        <div class="row">
+            <a href="/" th:href="@{'/setWorkplace/'+'PIZZA'}" class="btn btn-large btn-success col">
+                <h1 display-1 font-weight-bold>Pizza</h1>
+            </a>
+<!--            <a href="/" th:href="@{'/setWorkplace/'+'BURGER'}" class="btn btn-large btn-warning">Burger</a>-->
+            <span class="col"></span>
+            <a href="/pizzaDriversQueue" class="btn btn-info float-right col"><h1 display-1 font-weight-bold>pizza - kolejka</h1></a>
+        </div>
+        <div class="row">
+            <h1 class="col">Wybrano</h1>
+            <h1 class="col"><p th:text="${workplace}"></p></h1>
+        </div>
     </div>
+            <div class="card-footer mw-100">
+                <a href="/home" class="btn btn-large btn-secondary btn-block"><h1 display-1 font-weight-bold>Wróć</h1></a>
+            </div>
 
 </div>
 

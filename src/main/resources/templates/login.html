@@ -10,26 +10,26 @@
 <body>
 
 
-<div class="card" style="width: 24rem;">
-    <div class="card-body">
+<div class="card mw-100">
+    <div class="card-body mw-100">
         <form class="form-signin" method="POST" th:action="@{/login}">
             <div class="form-group">
                 <span th:text="${message}"></span>
-                <input name="username" type="text" class="form-control" placeholder="Username" autofocus="true"/>
+                <input name="username" type="text" class="form-control" placeholder="Nazwa użytkownika" autofocus="true"/>
             </div>
             <div class="form-group">
-                <input name="password" type="password" class="form-control" placeholder="Password"/>
+                <input name="password" type="password" class="form-control" placeholder="Hasło"/>
                 <span class="has-error" th:text="${error}"></span>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             </div>
             <div class="form-group">
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Logowanie</button>
+                <button class="btn btn-lg btn-primary btn-block" type="submit"><h1 display-1 font-weight-bold>Zaloguj się</h1></button>
             </div>
         </form>
     </div>
-    <div class="card-body bg-light">
-        <h3 class="form-heading" float-center>Nie masz konta?</h3>
-        <a href="/registration"><button type="button" class="btn btn-lg btn-success btn-block float-right">Zarejestruj się</button></a>
+    <div class="card-body bg-light mw-100">
+        <h1 class="form-heading" float-center>Nie masz konta?</h1>
+        <a href="/registration"><button type="button" class="btn btn-lg btn-success btn-block float-right"><h1 display-1 font-weight-bold>Zarejestruj się</h1></button></a>
     </div>
 </div>
 

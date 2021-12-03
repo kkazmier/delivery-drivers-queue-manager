@@ -7,17 +7,22 @@
 </head>
 
 <body>
-    <div class="card" style="width: 24rem;">
-        <div class="card-header">
-            <h2>Kolejka kierowców</h2>
+    <div class="card mw-100">
+        <div class="card-header mw-100">
+            <h1 display-1 font-weight-bold>Kolejka kierowców</h1>
         </div>
         <div class="card-body">
-            <h2>Wybierz lokal</h2>
-            <a href="/pizzaDriversQueue" class="btn btn-success float-left">pizza</a>
-            <a href="/burgerDriversQueue" class="btn btn-warning float-left">burger</a>
-            <a href="/driversQueue" class="btn btn-large btn-secondary float-right">Wróć</a>
+            <h1 display-1 font-weight-bold>Wybierz lokal</h1>
+            <div class="row">
+                <a href="/pizzaDriversQueue" class="btn btn-success float-left col"><h1 display-1 font-weight-bold>pizza</h1></a>
+                <span class="col"></span>
+                <span class="col"></span>
+    <!--            <a href="/burgerDriversQueue" class="btn btn-warning float-left">burger</a>-->
+                <a href="/driversQueue" class="btn btn-large btn-secondary float-right col"><h1 display-1 font-weight-bold>Wróć</h1></a>
+            </div>
         </div>
-        <div class="card-footer">
+        <div class="card-footer mw-100">
+            <span></span>
             <form th:action="@{/logout}" method="POST">
                 <input class="btn btn-lg btn-secondary btn-block" type="submit" value="Wyloguj"/>
             </form>
