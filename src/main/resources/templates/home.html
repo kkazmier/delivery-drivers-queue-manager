@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org" >
+<html lang="pl" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <title>Kolejka kierowców - strona główna</title>
@@ -31,7 +31,9 @@
     <div class="card-body mw-100">
         <div class="row">
             <a href="/workplace" class="btn btn-danger col"><h1 display-1 font-weight-bold>Wybierz miejsce pracy</h1></a>
-            <span class="col"></span>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#infoModal">
+                <h1>Ważna informacja!</h1>
+            </button>
             <a href="/driversQueue" class="btn btn-success col"><h1 display-1 font-weight-bold>Kolejka kierowców</h1></a>
             <a href="/loggedDrivers" class="btn btn-primary col"><h1 display-1 font-weight-bold>Zalogowani kierowcy</h1></a>
         </div>
@@ -41,6 +43,27 @@
         <form th:action="@{/logout}" method="POST">
             <input class="btn btn-lg display-1 font-weight-bold btn-secondary btn-block" type="submit" value="Wyloguj"/>
         </form>
+    </div>
+</div>
+
+<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="exampleModalLabel">Info</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h1>Jeśli po wyborze miejsca pracy i statusu (gotowy,..., przerwa)</h1>
+                <h1>jesteś niewidoczy/na w kolejce,</h1>
+                <h1>trzeba się wylogować i zalogować ponownie.</h1>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
     </div>
 </div>
 
