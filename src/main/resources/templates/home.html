@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8">
     <title>Kolejka kierowców - strona główna</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">-->
 <!--    <link href="/css/main.css" rel="stylesheet">-->
 </head>
 
@@ -31,15 +32,16 @@
     <div class="card-body mw-100">
         <div class="row">
             <a href="/workplace" class="btn btn-danger col"><h1 display-1 font-weight-bold>Wybierz miejsce pracy</h1></a>
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#infoModal">
-                <h1>Ważna informacja!</h1>
-            </button>
             <a href="/driversQueue" class="btn btn-success col"><h1 display-1 font-weight-bold>Kolejka kierowców</h1></a>
             <a href="/loggedDrivers" class="btn btn-primary col"><h1 display-1 font-weight-bold>Zalogowani kierowcy</h1></a>
+            <button type="button" class="btn btn-info col" data-toggle="modal" data-target="#infoModal">
+                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                <h1>Ważne informacje</h1>
+                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+            </button>
         </div>
     </div>
     <div class="card-footer mw-100">
-        <div class="btn btn-lg display-1 font-weight-bold"></div>
         <form th:action="@{/logout}" method="POST">
             <input class="btn btn-lg display-1 font-weight-bold btn-secondary btn-block" type="submit" value="Wyloguj"/>
         </form>
@@ -47,21 +49,34 @@
 </div>
 
 <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-fullscreen" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title" id="exampleModalLabel">Info</h1>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close btn-block" data-dismiss="modal" aria-label="Ok">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <h1>Jeśli po wyborze miejsca pracy i statusu (gotowy,..., przerwa)</h1>
-                <h1>jesteś niewidoczy/na w kolejce,</h1>
-                <h1>trzeba się wylogować i zalogować ponownie.</h1>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <h1>
+                            Jeśli po wyborze miejsca pracy i statusu (gotowy,..., przerwa) jesteś niewidoczy/na w kolejce,
+                        trzeba się wylogować i zalogować ponownie.
+                    </h1>
+                    </li>
+                    <li class="list-group-item"><h1>
+                        Po wylogowaniu, żeby powrócić do menu, trzeba kliknąć 'wstecz' w przeglądarce.
+                    </h1></li>
+                    <li class="list-group-item"><h1>
+                        Na chwilę obecną strona jest umieszczona na darmowym serwerze. W związku z tym,
+                        po pewnym czasie nieaktywności (nikt nic nie klika), program przechodzi w stan uśpienia.
+                        W tej sytuacji trzeba chwilę poczekać aż strona się załaduje (przeglądarka będzie 'mielić').
+                    </h1></li>
+                </ul>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+                <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Ok</button>
             </div>
         </div>
     </div>
