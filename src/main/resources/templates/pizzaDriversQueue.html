@@ -44,29 +44,57 @@
         <td th:text="${custStat.count}"></td>
         <td th:text="${driver.user.firstName}"></td>
         <td th:text="${driver.user.lastName}"></td>
-        <td th:text="${driver.driverStatus}"></td>
-        <td th:text="${driver.changeDriverStatusTime}"></td>
+        <td th:switch="${driver.driverStatus}">
+            <span th:case="READY">Wolny</span>
+            <span th:case="DELIVERING">Na dostawie</span>
+            <span th:case="UNDEFINED">Nieokreślony</span>
+            <span th:case="DELIVERING">Na dostawie</span>
+            <span th:case="BACK">Wraca</span>
+            <span th:case="BREAK">Na przerwie</span>
+        </td>
+        <td th:text="${driver.changeDriverStatusTimeStr}"></td>
     </tr>
     <tr class="table-primary" th:each="driver, custStat : ${pizzaBackDrivers}">
         <td th:text="${custStat.count}"></td>
         <td th:text="${driver.user.firstName}"></td>
         <td th:text="${driver.user.lastName}"></td>
-        <td th:text="${driver.driverStatus}"></td>
-        <td th:text="${driver.changeDriverStatusTime}"></td>
+        <td th:switch="${driver.driverStatus}">
+            <span th:case="READY">Wolny</span>
+            <span th:case="DELIVERING">Na dostawie</span>
+            <span th:case="UNDEFINED">Nieokreślony</span>
+            <span th:case="DELIVERING">Na dostawie</span>
+            <span th:case="BACK">Wraca</span>
+            <span th:case="BREAK">Na przerwie</span>
+        </td>
+        <td th:text="${driver.changeDriverStatusTimeStr}"></td>
     </tr>
     <tr class="table-warning" th:each="driver, custStat : ${pizzaDeliveringDrivers}">
         <td th:text="${custStat.count}"></td>
         <td th:text="${driver.user.firstName}"></td>
         <td th:text="${driver.user.lastName}"></td>
-        <td th:text="${driver.driverStatus}"></td>
-        <td th:text="${driver.changeDriverStatusTime}"></td>
+        <td th:switch="${driver.driverStatus}">
+            <span th:case="READY">Wolny</span>
+            <span th:case="DELIVERING">Na dostawie</span>
+            <span th:case="UNDEFINED">Nieokreślony</span>
+            <span th:case="DELIVERING">Na dostawie</span>
+            <span th:case="BACK">Wraca</span>
+            <span th:case="BREAK">Na przerwie</span>
+        </td>
+        <td th:text="${driver.changeDriverStatusTimeStr}"></td>
     </tr>
     <tr class="table-secondary" th:each="driver, custStat : ${pizzaBreakDrivers}">
         <td th:text="${custStat.count}"></td>
         <td th:text="${driver.user.firstName}"></td>
         <td th:text="${driver.user.lastName}"></td>
-        <td th:text="${driver.driverStatus}"></td>
-        <td th:text="${driver.changeDriverStatusTime}"></td>
+        <td th:switch="${driver.driverStatus}">
+            <span th:case="READY">Wolny</span>
+            <span th:case="DELIVERING">Na dostawie</span>
+            <span th:case="UNDEFINED">Nieokreślony</span>
+            <span th:case="DELIVERING">Na dostawie</span>
+            <span th:case="BACK">Wraca</span>
+            <span th:case="BREAK">Na przerwie</span>
+        </td>
+        <td th:text="${driver.changeDriverStatusTimeStr}"></td>
     </tr>
 
 <!--    <tr th:each="driver, custStat : ${pizzaDrivers}">-->
