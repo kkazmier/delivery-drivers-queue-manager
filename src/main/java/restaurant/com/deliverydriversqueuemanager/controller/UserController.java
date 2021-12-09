@@ -123,9 +123,9 @@ public class UserController implements HttpSessionBindingListener {
     }
 
     @GetMapping("/allUsers")
-    @ResponseBody
-    public List<User> allUsers(Model model) {
-        return userService.getAllUsers();
+    public String allUsers(Model model) {
+        model.addAttribute("allUsers", userService.getAllUsers());
+        return "allUsers";
     }
 
     @GetMapping("/deleteAllUsers")
