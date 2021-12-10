@@ -134,6 +134,11 @@ public class UserController implements HttpSessionBindingListener {
         userService.deleteAll();
     }
 
+    @GetMapping("/deleteUser/{username}")
+    void deleteUser(@PathVariable String username) {
+        userService.deleteUser(username);
+    }
+
     @GetMapping("/setWorkplace/{workplace}")
     String setWorkPlace(@PathVariable String workplace, Model model) {
         String username = securityService.getLoggedUsername();

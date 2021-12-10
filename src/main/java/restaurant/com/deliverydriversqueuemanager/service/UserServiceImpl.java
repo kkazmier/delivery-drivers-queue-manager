@@ -53,6 +53,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void deleteUser(String username) {
+        User user = userRepository.findByUsername(username);
+        if (user != null) {
+            userRepository.delete(user);
+            logger.info("Delete " + username);
+        } else {
+            logger.info("User not found.");
+        }
+    }
+
+    @Override
     public void setWorkplace(String username, String workplace) {
         User user = userRepository.findByUsername(username);
         if(user != null) {
