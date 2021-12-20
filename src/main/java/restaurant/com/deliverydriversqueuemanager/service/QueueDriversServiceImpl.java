@@ -4,13 +4,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import restaurant.com.deliverydriversqueuemanager.model.Driver;
 import restaurant.com.deliverydriversqueuemanager.model.DriverStatus;
 import restaurant.com.deliverydriversqueuemanager.model.User;
+import restaurant.com.deliverydriversqueuemanager.model.Workplace;
 import restaurant.com.deliverydriversqueuemanager.repository.DriverRepository;
 import restaurant.com.deliverydriversqueuemanager.util.ActiveUserStore;
 import restaurant.com.deliverydriversqueuemanager.util.Comparators;
+import restaurant.com.deliverydriversqueuemanager.util.Time;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -48,7 +52,7 @@ public class QueueDriversServiceImpl implements QueueDriversService {
 
     @Override
     public List<Driver> getReadyDrivers() {
-        Comparator<Driver> cmp = Comparator.comparing(Driver::getChangeDriverStatusTime);
+        Comparator<Driver> cmp = Comparator.comparing(Driver::getChangeDriverStatusTimeStr);
         List<Driver> readyDrivers = driverRepository.findAll();
         if (readyDrivers == null) {
             readyDrivers = new ArrayList<>();
@@ -64,5 +68,60 @@ public class QueueDriversServiceImpl implements QueueDriversService {
         return readyDrivers;
     }
 
+    @Override
+    public List<Driver> getDriversForPresentation() {
+        Comparator<Driver> cmp = Comparator.comparing(Driver::getChangeDriverStatusTimeStr);
+        LocalDateTime time = LocalDateTime.now();
+        List<User> users = new ArrayList<>();
+        List<Driver> drivers = new ArrayList<>();
 
+        User user = new User("ddab", "Dobromir", "Dąb", Workplace.PIZZA);
+        Driver driver = new Driver();
+        driver.setDriverStatus(DriverStatus.READY);
+        driver.setChangeDriverStatusTimeStr(Time.getStringTime(time));
+        driver.setUser(user);
+        user.setDriver(driver);
+        users.add(user);
+        drivers.add(driver);
+
+        user = new User("ppszenica", "Przemysław", "Pszenica", Workplace.PIZZA);
+        driver = new Driver();
+        driver.setDriverStatus(DriverStatus.BACK);
+        driver.setChangeDriverStatusTimeStr(Time.getStringTime(time.plusMinutes(13)));
+        driver.setUser(user);
+        user.setDriver(driver);
+        users.add(user);
+        drivers.add(driver);
+
+        user = new User("jjarm", "Jaromir", "Jarmuż", Workplace.PIZZA);
+        driver = new Driver();
+        driver.setDriverStatus(DriverStatus.DELIVERING);
+        driver.setChangeDriverStatusTimeStr(Time.getStringTime(time.plusMinutes(15)));
+        driver.setUser(user);
+        user.setDriver(driver);
+        users.add(user);
+        drivers.add(driver);
+
+        user = new User("aaron", "Artur", "Aronia", Workplace.PIZZA);
+        driver = new Driver();
+        driver.setDriverStatus(DriverStatus.BREAK);
+        driver.setChangeDriverStatusTimeStr(Time.getStringTime(time.plusMinutes(17)));
+        driver.setUser(user);
+        user.setDriver(driver);
+        users.add(user);
+        drivers.add(driver);
+
+        user = new User("bbakl", "Bronisław", "Bakłażan", Workplace.PIZZA);
+        driver = new Driver();
+        driver.setDriverStatus(DriverStatus.READY);
+        driver.setChangeDriverStatusTimeStr(Time.getStringTime(time.plusMinutes(18)));
+        driver.setUser(user);
+        user.setDriver(driver);
+        users.add(user);
+        drivers.add(driver);
+
+        drivers.sort(cmp);
+        logger.info(drivers.toString());
+        return drivers;
+    }
 }

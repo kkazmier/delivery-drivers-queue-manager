@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Kolejka kierowców - pizza</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+
+<body>
+
+<div class="card mw-100">
+    <div class="card-header mw-100">
+        <h1 display-1 font-weight-bold>Kolejka kierowców - pizza</h1>
+    </div>
+    <div class="card-body mw-100">
+        <div class="row">
+            <a href="driver/beginWork" class="btn btn-success float-left col"><h1 display-1 font-weight-bold>Gotowy</h1></a>
+            <a href="driver/beginDelivery" class="btn btn-primary float-right col"><h1 display-1 font-weight-bold>Rozpocznij dostawę</h1></a>
+            <a href="driver/endingDelivery" class="btn btn-info float-left col"><h1 display-1 font-weight-bold>Wracam do lokalu</h1></a>
+            <a href="driver/beginBreak" class="btn btn-secondary float-right col"><h1 display-1 font-weight-bold>Przerwa</h1></a>
+        </div>
+    </div>
+    <div class="card-footer mw-100">
+        <div class="row">
+            <a href="/home" class="btn btn-large btn-secondary float-left col"><h1 display-1 font-weight-bold>Wróć</h1></a>
+            <span class="col"></span>
+            <span class="col"></span>
+            <a href="/pizzaDriversQueue" class="btn btn-large btn-info float-right col"><h1 display-1 font-weight-bold>Odśwież</h1></a>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead class="table-dark">
+    <tr>
+        <th>#</th>
+        <th>Imię</th>
+        <th>Nazwisko</th>
+        <th>Status</th>
+        <th>Zmiana statusu</th>
+    </tr>
+    </thead>
+    <tr class="table-success" th:each="driver, custStat : ${pizzaReadyDriversPresentation}">
+        <td th:text="${custStat.count}"></td>
+        <td th:text="${driver.user.firstName}"></td>
+        <td th:text="${driver.user.lastName}"></td>
+        <td th:switch="${driver.driverStatus}">
+            <span th:case="READY">Wolny</span>
+            <span th:case="DELIVERING">Na dostawie</span>
+            <span th:case="UNDEFINED">Nieokreślony</span>
+            <span th:case="DELIVERING">Na dostawie</span>
+            <span th:case="BACK">Wraca</span>
+            <span th:case="BREAK">Na przerwie</span>
+        </td>
+        <td th:text="${driver.changeDriverStatusTimeStr}"></td>
+    </tr>
+    <tr class="table-primary" th:each="driver, custStat : ${pizzaBackDriversPresentation}">
+        <td th:text="${custStat.count}"></td>
+        <td th:text="${driver.user.firstName}"></td>
+        <td th:text="${driver.user.lastName}"></td>
+        <td th:switch="${driver.driverStatus}">
+            <span th:case="READY">Wolny</span>
+            <span th:case="DELIVERING">Na dostawie</span>
+            <span th:case="UNDEFINED">Nieokreślony</span>
+            <span th:case="DELIVERING">Na dostawie</span>
+            <span th:case="BACK">Wraca</span>
+            <span th:case="BREAK">Na przerwie</span>
+        </td>
+        <td th:text="${driver.changeDriverStatusTimeStr}"></td>
+    </tr>
+    <tr class="table-warning" th:each="driver, custStat : ${pizzaDeliveringDriversPresentation}">
+        <td th:text="${custStat.count}"></td>
+        <td th:text="${driver.user.firstName}"></td>
+        <td th:text="${driver.user.lastName}"></td>
+        <td th:switch="${driver.driverStatus}">
+            <span th:case="READY">Wolny</span>
+            <span th:case="DELIVERING">Na dostawie</span>
+            <span th:case="UNDEFINED">Nieokreślony</span>
+            <span th:case="DELIVERING">Na dostawie</span>
+            <span th:case="BACK">Wraca</span>
+            <span th:case="BREAK">Na przerwie</span>
+        </td>
+        <td th:text="${driver.changeDriverStatusTimeStr}"></td>
+    </tr>
+    <tr class="table-secondary" th:each="driver, custStat : ${pizzaBreakDriversPresentation}">
+        <td th:text="${custStat.count}"></td>
+        <td th:text="${driver.user.firstName}"></td>
+        <td th:text="${driver.user.lastName}"></td>
+        <td th:switch="${driver.driverStatus}">
+            <span th:case="READY">Wolny</span>
+            <span th:case="DELIVERING">Na dostawie</span>
+            <span th:case="UNDEFINED">Nieokreślony</span>
+            <span th:case="DELIVERING">Na dostawie</span>
+            <span th:case="BACK">Wraca</span>
+            <span th:case="BREAK">Na przerwie</span>
+        </td>
+        <td th:text="${driver.changeDriverStatusTimeStr}"></td>
+    </tr>
+
+    <!--    <tr th:each="driver, custStat : ${pizzaDrivers}">-->
+    <!--        <td th:text="${custStat.count}"></td>-->
+    <!--        <td th:text="${driver.user.firstName}"></td>-->
+    <!--        <td th:text="${driver.user.lastName}"></td>-->
+    <!--        <td th:text="${driver.driverStatus}"></td>-->
+    <!--        <td th:text="${driver.changeDriverStatusTime}"></td>-->
+    <!--    </tr>-->
+</table>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<!--<script src="/js/main.js"></script>-->
+</body>
+</html>
