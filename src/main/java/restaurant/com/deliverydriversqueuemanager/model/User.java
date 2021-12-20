@@ -2,6 +2,7 @@ package restaurant.com.deliverydriversqueuemanager.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
+@NoArgsConstructor
 @Getter
 @Setter
 public class User extends BaseEntity {
@@ -25,6 +27,13 @@ public class User extends BaseEntity {
     @JoinColumn(name = "driver_id", referencedColumnName = "id")
     @JsonManagedReference
     private Driver driver;
+
+    public User(String username, String firstName, String lastName, String workPlace) {
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.workPlace = workPlace;
+    }
 
     @Override
     public String toString() {
