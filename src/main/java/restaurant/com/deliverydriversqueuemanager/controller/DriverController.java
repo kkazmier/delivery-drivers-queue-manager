@@ -14,6 +14,7 @@ import restaurant.com.deliverydriversqueuemanager.model.DriverStatus;
 import restaurant.com.deliverydriversqueuemanager.model.User;
 import restaurant.com.deliverydriversqueuemanager.service.DriverServiceImpl;
 import restaurant.com.deliverydriversqueuemanager.service.UserServiceImpl;
+import restaurant.com.deliverydriversqueuemanager.util.Time;
 
 import java.time.LocalDateTime;
 
@@ -43,7 +44,7 @@ public class DriverController {
         driver = user.getDriver();
         driver.setDriverStatus(DriverStatus.READY);
         driver.setChangeDriverStatusTime(LocalDateTime.now());
-        driver.setChangeDriverStatusTimeStr(getCurrentTime());
+        driver.setChangeDriverStatusTimeStr(Time.getCurrentTime());
         driverService.save(driver);
         return "redirect:/pizzaDriversQueue";
     }
@@ -55,7 +56,7 @@ public class DriverController {
         driver = user.getDriver();
         driver.setDriverStatus(DriverStatus.DELIVERING);
         driver.setChangeDriverStatusTime(LocalDateTime.now());
-        driver.setChangeDriverStatusTimeStr(getCurrentTime());
+        driver.setChangeDriverStatusTimeStr(Time.getCurrentTime());
         driverService.save(driver);
         return "redirect:/pizzaDriversQueue";
     }
@@ -67,7 +68,7 @@ public class DriverController {
         driver = user.getDriver();
         driver.setDriverStatus(DriverStatus.BACK);
         driver.setChangeDriverStatusTime(LocalDateTime.now());
-        driver.setChangeDriverStatusTimeStr(getCurrentTime());
+        driver.setChangeDriverStatusTimeStr(Time.getCurrentTime());
         driverService.save(driver);
         return "redirect:/pizzaDriversQueue";
     }
@@ -79,7 +80,7 @@ public class DriverController {
         driver = user.getDriver();
         driver.setDriverStatus(DriverStatus.BREAK);
         driver.setChangeDriverStatusTime(LocalDateTime.now());
-        driver.setChangeDriverStatusTimeStr(getCurrentTime());
+        driver.setChangeDriverStatusTimeStr(Time.getCurrentTime());
         driverService.save(driver);
         return "redirect:/pizzaDriversQueue";
     }
@@ -92,26 +93,5 @@ public class DriverController {
         } else {
             return "Name not found";
         }
-    }
-
-    public String getCurrentTime() {
-        String currentTime = "";
-        LocalDateTime time = LocalDateTime.now();
-        String hour = String.valueOf(time.getHour());
-        if(hour.length() < 2) {
-            hour = '0' + hour;
-        }
-        String minute = String.valueOf(time.getMinute());
-        if (minute.length() < 2) {
-            minute = '0' + minute;
-        }
-        String second = String.valueOf(time.getSecond());
-        if (second.length() < 2) {
-            second = '0' + second;
-        }
-        currentTime += hour + ":";
-        currentTime += minute + ":";
-        currentTime += second;
-        return currentTime;
     }
 }
