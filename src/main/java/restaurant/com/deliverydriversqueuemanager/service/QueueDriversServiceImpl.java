@@ -147,6 +147,47 @@ user = new User("mmarch", "Marcin", "Marchewka", Workplace.PIZZA);
         users.add(user);
         drivers.add(driver);
 
+user = new User("aanton", "Antoni", "Antonówka", Workplace.PIZZA);
+        driver = new Driver();
+        driver.setDriverStatus(DriverStatus.READY);
+        driver.setChangeDriverStatusTimeStr(Time.getStringTime(time.plusMinutes(25)));
+        driver.setUser(user);
+        user.setDriver(driver);
+        users.add(user);
+        drivers.add(driver);
+
+user = new User("kkala", "Karol", "Kalarepa ", Workplace.PIZZA);
+        driver = new Driver();
+        driver.setDriverStatus(DriverStatus.READY);
+        driver.setChangeDriverStatusTimeStr(Time.getStringTime(time.plusMinutes(25)));
+        driver.setUser(user);
+        user.setDriver(driver);
+        users.add(user);
+        drivers.add(driver);
+
+user = new User("ppat", "Patryk", "Patison", Workplace.PIZZA);
+        driver = new Driver();
+        driver.setDriverStatus(DriverStatus.READY);
+        driver.setChangeDriverStatusTimeStr(Time.getStringTime(time.plusMinutes(25)));
+        driver.setUser(user);
+        user.setDriver(driver);
+        users.add(user);
+        drivers.add(driver);
+
+user = new User("ddynia", "Daniel", "Dynia", Workplace.PIZZA);
+        driver = new Driver();
+        driver.setDriverStatus(DriverStatus.READY);
+        driver.setChangeDriverStatusTimeStr(Time.getStringTime(time.plusMinutes(25)));
+        driver.setUser(user);
+        user.setDriver(driver);
+        users.add(user);
+        drivers.add(driver);
+
+
+
+
+
+
         drivers.sort(cmp);
         logger.info(drivers.toString());
         return drivers;
