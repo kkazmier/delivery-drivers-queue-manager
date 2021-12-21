@@ -120,6 +120,33 @@ public class QueueDriversServiceImpl implements QueueDriversService {
         users.add(user);
         drivers.add(driver);
 
+user = new User("ccebul", "Cecylia", "Cebula", Workplace.PIZZA);
+        driver = new Driver();
+        driver.setDriverStatus(DriverStatus.READY);
+        driver.setChangeDriverStatusTimeStr(Time.getStringTime(time.plusMinutes(21)));
+        driver.setUser(user);
+        user.setDriver(driver);
+        users.add(user);
+        drivers.add(driver);
+
+user = new User("zziemn", "Zdzisław", "Ziemniak", Workplace.PIZZA);
+        driver = new Driver();
+        driver.setDriverStatus(DriverStatus.READY);
+        driver.setChangeDriverStatusTimeStr(Time.getStringTime(time.plusMinutes(18)));
+        driver.setUser(user);
+        user.setDriver(driver);
+        users.add(user);
+        drivers.add(driver);
+
+user = new User("mmarch", "Marcin", "Marchewka", Workplace.PIZZA);
+        driver = new Driver();
+        driver.setDriverStatus(DriverStatus.READY);
+        driver.setChangeDriverStatusTimeStr(Time.getStringTime(time.plusMinutes(25)));
+        driver.setUser(user);
+        user.setDriver(driver);
+        users.add(user);
+        drivers.add(driver);
+
         drivers.sort(cmp);
         logger.info(drivers.toString());
         return drivers;
