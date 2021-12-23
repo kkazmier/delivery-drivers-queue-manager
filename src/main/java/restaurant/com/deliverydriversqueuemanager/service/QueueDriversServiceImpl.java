@@ -122,7 +122,7 @@ public class QueueDriversServiceImpl implements QueueDriversService {
 
 user = new User("ccebul", "Cecylia", "Cebula", Workplace.PIZZA);
         driver = new Driver();
-        driver.setDriverStatus(DriverStatus.READY);
+        driver.setDriverStatus(DriverStatus.DELIVERING);
         driver.setChangeDriverStatusTimeStr(Time.getStringTime(time.plusMinutes(21)));
         driver.setUser(user);
         user.setDriver(driver);
@@ -131,7 +131,7 @@ user = new User("ccebul", "Cecylia", "Cebula", Workplace.PIZZA);
 
 user = new User("zziemn", "Zdzisław", "Ziemniak", Workplace.PIZZA);
         driver = new Driver();
-        driver.setDriverStatus(DriverStatus.READY);
+        driver.setDriverStatus(DriverStatus.DELIVERING);
         driver.setChangeDriverStatusTimeStr(Time.getStringTime(time.plusMinutes(18)));
         driver.setUser(user);
         user.setDriver(driver);
@@ -149,8 +149,8 @@ user = new User("mmarch", "Marcin", "Marchewka", Workplace.PIZZA);
 
 user = new User("aanton", "Antoni", "Antonówka", Workplace.PIZZA);
         driver = new Driver();
-        driver.setDriverStatus(DriverStatus.READY);
-        driver.setChangeDriverStatusTimeStr(Time.getStringTime(time.plusMinutes(25)));
+        driver.setDriverStatus(DriverStatus.DELIVERING);
+        driver.setChangeDriverStatusTimeStr(Time.getStringTime(time.plusMinutes(45)));
         driver.setUser(user);
         user.setDriver(driver);
         users.add(user);
@@ -158,7 +158,7 @@ user = new User("aanton", "Antoni", "Antonówka", Workplace.PIZZA);
 
 user = new User("kkala", "Karol", "Kalarepa ", Workplace.PIZZA);
         driver = new Driver();
-        driver.setDriverStatus(DriverStatus.READY);
+        driver.setDriverStatus(DriverStatus.DELIVERING);
         driver.setChangeDriverStatusTimeStr(Time.getStringTime(time.plusMinutes(25)));
         driver.setUser(user);
         user.setDriver(driver);
@@ -167,8 +167,8 @@ user = new User("kkala", "Karol", "Kalarepa ", Workplace.PIZZA);
 
 user = new User("ppat", "Patryk", "Patison", Workplace.PIZZA);
         driver = new Driver();
-        driver.setDriverStatus(DriverStatus.READY);
-        driver.setChangeDriverStatusTimeStr(Time.getStringTime(time.plusMinutes(25)));
+        driver.setDriverStatus(DriverStatus.BACK);
+        driver.setChangeDriverStatusTimeStr(Time.getStringTime(time.plusMinutes(33)));
         driver.setUser(user);
         user.setDriver(driver);
         users.add(user);
@@ -176,7 +176,7 @@ user = new User("ppat", "Patryk", "Patison", Workplace.PIZZA);
 
 user = new User("ddynia", "Daniel", "Dynia", Workplace.PIZZA);
         driver = new Driver();
-        driver.setDriverStatus(DriverStatus.READY);
+        driver.setDriverStatus(DriverStatus.BACK);
         driver.setChangeDriverStatusTimeStr(Time.getStringTime(time.plusMinutes(25)));
         driver.setUser(user);
         user.setDriver(driver);
