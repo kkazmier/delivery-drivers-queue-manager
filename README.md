@@ -3,8 +3,11 @@ Application for manage drivers queue. Thanks for use Thymeleaf, frontend and bac
 ## Used technologies
 - Spring Boot
 - Spring Security
-
+- Spring Data JPA
+- Postgres
 - Thymeleaf
+## Endpoints
+
 ## Run application
 To run program type ```mvn spring-boot:run``` in command line console, in project folder.
 ## Screenshots
