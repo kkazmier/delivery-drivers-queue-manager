@@ -1,5 +1,5 @@
 # Delivery Drivers Queue Manager
-Application for manage drivers queue. Thanks for use Thymeleaf, frontend and backend work together in one project.
+The application is manage for drivers queue. Thanks for use Thymeleaf, frontend and backend work together in one project.
 ## Used technologies
 - Spring Boot
 - Spring Security
