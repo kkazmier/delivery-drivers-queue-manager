@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSessionBindingListener;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Controller
+@Controller("user")
 public class UserController implements HttpSessionBindingListener {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
